@@ -1,0 +1,10 @@
+# Estruturas
+- projetos em espanhol e portugues
+- apresentação principal com fluxo de trabalho, codigos construidos, analises descritvas, exploratorias e estatisticas, modelos, dpeloy dos modelos e estratégias de uso
+- separar a apresentação principal por sub apresentação de cada modulo
+
+# Analise
+- estatistica explorando a correlação das variaveis, quais possuem maior importancia e como analisar os resultados para modelo de negocio
+- modelo de ML explicar a construção e métricas de avaliação utilizadas, atributos que melhor explicam a variavel dependente
+- Deploy do modelo é mostrar um possível uso do modelo em produção, quando ele recebe novos dados e fornece um probabilidade de ser de uma das duas classes. Com essa informação difinir junto com stakeholders as melhores estratégias para as características do cliente
+- montar um estrutura de exemplo onde o modelo fornece a informação e um CHatgpt com prompt pre cosntruido com informações da nuvemshop coleta informações do cliente e fornece orientação personalizada
