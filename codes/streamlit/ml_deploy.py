@@ -1,11 +1,10 @@
 # Deploy de Aplicações Preditivas com Streamlit
 
 # Imports
-import time
 import numpy as np
 import pandas as pd
 import streamlit as st
-import sklearn.metrics
+from PIL import Image
 
 from joblib import load
 
@@ -24,18 +23,20 @@ best_svm_model = load('models/best_svm_model.pkl')
 
 ##### Programando a Barra Superior da Aplicação Web #####
 
+img_logo = Image.open('./imgs/logo.png')
+st.image(img_logo)
+
 # Títulos Estilizados
-st.markdown("# Deploy de Modelos de Machine Learning")
+st.markdown("## Previsão de Quality Leads (QL)")
 st.markdown("Murilo M Silvestrini")
-st.title("Modelos")
+st.markdown("---")
+st.markdown("**Selecione os dados de um cliente que completou o período de teste de 30 dias e clique no botão abaixo. O sistema realizará uma previsão sobre se o cliente decidirá continuar utilizando o serviço e se tornará um assinante pagante ou se optará por abandonar o serviço.**")
+st.markdown("---")
 
 ##### Programando a Barra Lateral de Navegação da Aplicação Web #####
 
-# Cabeçalho lateral
-st.sidebar.header('Dataset e Hiperparâmetros')
-
 # Coleta de dados de entrada
-st.sidebar.header('Insira os dados para previsão')
+st.sidebar.header('Selecione os dados para previsão')
 
 # Variáveis categóricas
 country = st.sidebar.selectbox('Country', ['BR', 'AR', 'MX', 'CO','CL'])
@@ -103,7 +104,6 @@ df_user_input[numeric_columns] = scaler_loaded.transform(df_user_input[numeric_c
 df_user_input_filtered = df_user_input[loaded_features]
 
 # Aqui você poderia adicionar o código para fazer previsões usando os modelos carregados
-# Por exemplo:
 predictions_rf = best_rf_model.predict(df_user_input_filtered)
 predictions_ada = best_ada_model.predict(df_user_input_filtered)
 predictions_svm = best_svm_model.predict(df_user_input_filtered)
@@ -114,6 +114,15 @@ predictions_svm = best_svm_model.predict(df_user_input_filtered)
 if st.button('Gerar Resultados'):
     # Processar os dados de entrada (assumindo que isso já está implementado)
     df_user_input_filtered = df_user_input[loaded_features]
+
+    if predictions_ada == 0:
+        st.markdown("---")
+        st.markdown("# Cliente vai optar por abandonar o serviço")
+        st.markdown("---")
+    else:
+        st.markdown("---")
+        st.markdown("# Cliente decidirá continuar utilizando o serviço")
+        st.markdown("---")
 
     # Fazendo previsões e exibindo resultados
     if hasattr(best_rf_model, 'predict_proba'):
@@ -137,3 +146,6 @@ if st.button('Gerar Resultados'):
         predictions_svm = best_svm_model.predict(df_user_input_filtered)
         st.write("SVM Predictions:", predictions_svm)
         st.write("SVM does not support probability estimates")
+
+
+
